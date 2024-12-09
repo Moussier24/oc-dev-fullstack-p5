@@ -15,15 +15,10 @@ import java.time.LocalDateTime;
 @Table(name = "USERS", uniqueConstraints = {
     @UniqueConstraint(columnNames = "email")
 })
-@Data
-@Accessors(chain = true)
-@EntityListeners(AuditingEntityListener.class)
-@EqualsAndHashCode(of = {"id"})
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
 @AllArgsConstructor
-@ToString
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,5 +53,15 @@ public class User {
   @UpdateTimestamp
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
+
+  public User(String email, String lastName, String firstName, String password, boolean admin) {
+    this.email = email;
+    this.lastName = lastName;
+    this.firstName = firstName;
+    this.password = password;
+    this.admin = admin;
+    this.createdAt = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now();
+  }
 
 }

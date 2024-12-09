@@ -12,10 +12,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
 @Getter
+@NoArgsConstructor
 public class UserDetailsImpl implements UserDetails {
   private static final long serialVersionUID = 1L;
 
@@ -30,10 +32,15 @@ public class UserDetailsImpl implements UserDetails {
   private Boolean admin;
 
   @JsonIgnore
-  private String password;  
-  
-  public Collection<? extends GrantedAuthority> getAuthorities() {        
-      return new HashSet<GrantedAuthority>();
+  private String password;
+
+  @Override
+  public String getPassword() {
+    return password;
+  }
+
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return new HashSet<GrantedAuthority>();
   }
 
   @Override
@@ -64,5 +71,10 @@ public class UserDetailsImpl implements UserDetails {
       return false;
     UserDetailsImpl user = (UserDetailsImpl) o;
     return Objects.equals(id, user.id);
-  } 
+  }
+
+  @Override
+  public String getUsername() {
+    return username;
+  }
 }

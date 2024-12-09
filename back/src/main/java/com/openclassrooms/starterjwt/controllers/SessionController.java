@@ -1,11 +1,10 @@
 package com.openclassrooms.starterjwt.controllers;
 
-
 import com.openclassrooms.starterjwt.dto.SessionDto;
 import com.openclassrooms.starterjwt.mapper.SessionMapper;
 import com.openclassrooms.starterjwt.models.Session;
 import com.openclassrooms.starterjwt.services.SessionService;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +14,13 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/session")
-@Log4j2
+@Slf4j
 public class SessionController {
     private final SessionMapper sessionMapper;
     private final SessionService sessionService;
 
-
     public SessionController(SessionService sessionService,
-                             SessionMapper sessionMapper) {
+            SessionMapper sessionMapper) {
         this.sessionMapper = sessionMapper;
         this.sessionService = sessionService;
     }
@@ -51,11 +49,11 @@ public class SessionController {
 
     @PostMapping()
     public ResponseEntity<?> create(@Valid @RequestBody SessionDto sessionDto) {
-        log.info(sessionDto);
+        log.info(sessionDto.toString());
 
         Session session = this.sessionService.create(this.sessionMapper.toEntity(sessionDto));
 
-        log.info(session);
+        log.info(session.toString());
         return ResponseEntity.ok().body(this.sessionMapper.toDto(session));
     }
 

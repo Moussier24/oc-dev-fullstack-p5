@@ -1,6 +1,5 @@
 package com.openclassrooms.starterjwt.models;
 
-
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,11 +19,13 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @Accessors(chain = true)
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(of = { "id" })
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Getter
+@Setter
 public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,10 +47,7 @@ public class Session {
     private Teacher teacher;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "PARTICIPATE",
-            joinColumns = @JoinColumn( name = "session_id" ),
-            inverseJoinColumns = @JoinColumn( name = "user_id" ) )
+    @JoinTable(name = "PARTICIPATE", joinColumns = @JoinColumn(name = "session_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
     @CreatedDate
