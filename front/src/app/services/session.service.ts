@@ -3,10 +3,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { SessionInformation } from '../interfaces/sessionInformation.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SessionService {
-
   public isLogged = false;
   public sessionInformation: SessionInformation | undefined;
 
@@ -19,6 +18,7 @@ export class SessionService {
   public logIn(user: SessionInformation): void {
     this.sessionInformation = user;
     this.isLogged = true;
+    console.log('SessionService#logIn', this.sessionInformation);
     this.next();
   }
 

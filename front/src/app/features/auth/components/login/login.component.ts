@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
-import { SessionService } from 'src/app/services/session.service';
+import { SessionInformation } from '../../../../interfaces/sessionInformation.interface';
+import { SessionService } from '../../../../services/session.service';
 import { LoginRequest } from '../../interfaces/loginRequest.interface';
 import { AuthService } from '../../services/auth.service';
 

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.ToString;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -33,6 +34,7 @@ public class UserDto {
     private boolean admin;
 
     @JsonIgnore
+    @ToString.Exclude
     @Size(max = 120)
     private String password;
 

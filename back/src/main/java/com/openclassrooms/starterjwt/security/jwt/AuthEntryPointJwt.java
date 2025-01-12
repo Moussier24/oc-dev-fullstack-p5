@@ -1,7 +1,7 @@
 package com.openclassrooms.starterjwt.security.jwt;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -30,11 +30,11 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-    final Map<String, Object> body = new HashMap<>();
-    body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+    final Map<String, Object> body = new LinkedHashMap<>();
+    body.put("path", request.getServletPath());
     body.put("error", "Unauthorized");
     body.put("message", authException.getMessage());
-    body.put("path", request.getServletPath());
+    body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
 
     final ObjectMapper mapper = new ObjectMapper();
     mapper.writeValue(response.getOutputStream(), body);

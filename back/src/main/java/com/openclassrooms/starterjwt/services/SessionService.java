@@ -39,6 +39,10 @@ public class SessionService {
     }
 
     public Session update(Long id, Session session) {
+        Session existingSession = this.sessionRepository.findById(id).orElse(null);
+        if (existingSession == null) {
+            return null;
+        }
         session.setId(id);
         return this.sessionRepository.save(session);
     }
@@ -51,7 +55,7 @@ public class SessionService {
         }
 
         boolean alreadyParticipate = session.getUsers().stream().anyMatch(o -> o.getId().equals(userId));
-        if(alreadyParticipate) {
+        if (alreadyParticipate) {
             throw new BadRequestException();
         }
 
@@ -67,11 +71,12 @@ public class SessionService {
         }
 
         boolean alreadyParticipate = session.getUsers().stream().anyMatch(o -> o.getId().equals(userId));
-        if(!alreadyParticipate) {
+        if (!alreadyParticipate) {
             throw new BadRequestException();
         }
 
-        session.setUsers(session.getUsers().stream().filter(user -> !user.getId().equals(userId)).collect(Collectors.toList()));
+        session.setUsers(
+                session.getUsers().stream().filter(user -> !user.getId().equals(userId)).collect(Collectors.toList()));
 
         this.sessionRepository.save(session);
     }
